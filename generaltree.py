@@ -23,38 +23,42 @@ class GeneralTree:
         else:
             return str(node.value)
 
-    def add_node(self, value, parent = None, current = None):
+    def add_node(self, value, parent=None, current=None):
         if current is None:
             current = self.root
 
         if current:
             if current.value == parent:
-                current.children.append(Node(value))
+                # Verificar si ya existe un nodo con el mismo nombre
+                if not self.duplicate_name(value.name):
+                    current.children.append(Node(value))
+                else:
+                    print(f"El nombre ya existe: '{value.name}'")
             else:
                 # Buscar recursivamente en los hijos del nodo actual
                 for child in current.children:
                     self.add_node(value, parent, child)
         else:
-            self.root = Node(value)
+            # Verificar si ya existe un nodo con el mismo nombre
+            if not self.duplicate_name(value.name):
+                self.root = Node(value)
+            else:
+                print(f"El nombre ya existe: '{value.name}'")
     
 
-    def delete_node(self, value, parent = None, current = None) -> bool:
+    def delete_node(self, value, parent=None, current=None) -> bool:
         if current is None:
             current = self.root
 
         if current:
+            # Buscar el nodo con el valor y el padre (si se proporciona)
             for child in current.children:
-                if (parent is None and current.value == value) or (current.value == parent and child.value == value):
-                    if parent is None:
-                        # Si el nodo a eliminar es el nodo raíz
-                        self.root = None
-                    else:
-                        current.children.remove(child)
-                        for descendent in child.children:
-                            self.delete_node(descendent.value, child.value, child)
+                if (parent is None and child.value.name == value) or (child.value.name == parent and child.value.name == value):
+                    # Eliminar el nodo y sus descendientes
+                    current.children.remove(child)
                     return True
 
-            # Si el nodo a eliminar no se encuentra entre los hijos, buscar recursivamente en los hijos
+            # Buscar recursivamente en los hijos del nodo actual
             for child in current.children:
                 if self.delete_node(value, parent, child):
                     return True
@@ -94,7 +98,9 @@ class GeneralTree:
             return True
         else:
             return False
-        
+    
+    def duplicate_name(self, original_name):
+        return self.find_node_by_name(original_name) is not None
 
     def pretty_print_tree(self, node = None, linea=""):
         if self.root is None:
@@ -140,7 +146,7 @@ arbol.add_node(archivo, carpeta_4)
 
 arbol.pretty_print_tree()
 
-arbol.rename_node("carpeta 3", "asadadwaad")
+arbol.delete_node("carpeta 3")
 
 arbol.pretty_print_tree()
 """
