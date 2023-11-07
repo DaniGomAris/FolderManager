@@ -26,7 +26,7 @@ class GeneralTree:
         else:
             return str(node.value)
 
-    def add_node(self, value, parent=None, current=None):
+    def add_node(self, value, parent = None, current = None):
         if current is None:
             current = self.root
 
@@ -49,7 +49,7 @@ class GeneralTree:
                 print(f"El nombre ya existe: '{value.name}'")
     
 
-    def delete_node(self, value, parent=None, current=None) -> bool:
+    def delete_node(self, value, parent = None, current = None) -> bool:
         if current is None:
             current = self.root
 
@@ -69,7 +69,7 @@ class GeneralTree:
         return False
     
 
-    def find_node_by_name(self, name, current=None):
+    def find_node_by_name(self, name, current = None):
         if current is None:
             current = self.root
 
@@ -107,6 +107,7 @@ class GeneralTree:
     
     def node_data(self, node):
         if node.is_folder():
+            print()
             return {
                 "Type": "Folder",
                 "Name": node.value.name,
@@ -127,37 +128,40 @@ class GeneralTree:
             }
         
     def build_tree_from_zip(self, zip_file_path):
-        # Directorio temporal para extraer el contenido del archivo zip
-        temp_dir = "temp_extracted_folder"
-
-        # Crear el objeto ZipFile
         with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
-            # Extraer todo el contenido del archivo zip en el directorio temporal
-            zip_ref.extractall(temp_dir)
+            zip_contents = zip_ref.namelist()
+            root_folder_name = os.path.basename(zip_ref.filename)
+            root_folder_value = Folder(root_folder_name, 0, None)
+            root_node = Node(root_folder_value)
 
-        # Construir el árbol a partir del directorio temporal
-        self.root = self.build_tree_from_directory_recursive(temp_dir)
-    
-    def build_tree_from_directory_recursive(self, directory):
-        node_value = Folder(os.path.basename(directory), 0, None)  # Tamaño y fecha de creación de la carpeta no están definidos en este contexto
-        node = Node(node_value)
+            for item in zip_contents:
+                item_name = os.path.basename(item)
+                item_size = zip_ref.getinfo(item).file_size
+                item_creation_date = zip_ref.getinfo(item).date_time
 
-        # Recorre los elementos en el directorio
-        for item in os.listdir(directory):
-            item_path = os.path.join(directory, item)
+                path_parts = item.split('/')
+                current_node = root_node
 
-            if os.path.isdir(item_path):
-                # Si es un directorio, llamada recursiva
-                child_node = self.build_tree_from_directory_recursive(item_path)
-            else:
-                # Si es un archivo, crea un nodo de archivo
-                file_size = os.path.getsize(item_path)
-                file_creation_date = os.path.getctime(item_path)
-                child_node = Node(File(item, file_size, file_creation_date))
+                for part in path_parts[:-1]:
+                    child_node = None
+                    for child in current_node.children:
+                        if child.value.name == part:
+                            child_node = child
+                            break
 
-            node.children.append(child_node)
+                    if not child_node:
+                        folder_value = Folder(part, 0, None)
+                        child_node = Node(folder_value)
+                        current_node.children.append(child_node)
 
-        return node
+                    current_node = child_node
+
+                if item_name:
+                    file_node = Node(File(item_name, item_size, item_creation_date))
+                    current_node.children.append(file_node)
+
+        self.root = root_node
+
 
     def pretty_print_tree(self, node = None, linea=""):
         if self.root is None:

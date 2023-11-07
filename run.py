@@ -15,9 +15,9 @@ if __name__ == "__main__":
 
     if option == 1:
         print()
-        zip_file_name = input("Enter the name of the zip file, example: ejemplo.zip: ")  # El usuario ingresa el nombre del archivo .zip
+        zip_file_name = input("Enter the name of the zip file, example (ejemplo.zip): ")  # El usuario ingresa el nombre del archivo .zip
         zip_file_path = os.path.join(os.path.dirname(__file__), zip_file_name)  # Construye la ruta completa al archivo .zip
-        #root_folder_name = input("Enter the name of the root folder: ")
+        #root_folder_name = input("Enter the name of the root folder: ") # Construir arbol propio
         print()
         print("--------------------------------")
         print()

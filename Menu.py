@@ -15,7 +15,8 @@ MENU
 4) Edit file
 5) Delete folder
 6) Delete file
-7) Node data""")
+7) Node data
+exit""")
 
         self.get_menu_answer()
 
@@ -64,6 +65,9 @@ MENU
             print()
             self.program.node_data()
             self.show_menu()
+        
+        elif option == "exit":
+            sys.exit("Chao")
 
         else:
             print("Opción inválida")

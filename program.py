@@ -8,7 +8,7 @@ class Program:
         parent_folder_name = input("Type the name of the folder where you want to add a folder: ")
         folder_name = input("Folder name: ")
         folder_weight = input("Folder weight: ")
-        folder_creationdate = input("Folder date(dd/mm/aa): ")
+        folder_creationdate = input("Folder date: ")
 
         parent_folder = self.tree.find_node_by_name(parent_folder_name)
         if parent_folder and parent_folder.is_folder():
@@ -28,7 +28,7 @@ class Program:
         parent_folder_name = input("Type the name of the folder where you want to add a folder: ")
         file_name = input("File name: ")
         file_weight = input("File weight: ")
-        file_creationdate = input("File date(dd/mm/aa): ")
+        file_creationdate = input("File date: ")
 
         parent_folder = self.tree.find_node_by_name(parent_folder_name)
         if parent_folder and parent_folder.is_folder():
