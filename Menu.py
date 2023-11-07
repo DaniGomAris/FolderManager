@@ -14,7 +14,8 @@ MENU
 3) Edit folder
 4) Edit file
 5) Delete folder
-6) Delete file""")
+6) Delete file
+7) Node data""")
 
         self.get_menu_answer()
 
@@ -56,6 +57,12 @@ MENU
             print("----------delete file-----------")
             print()
             self.program.delete_file()
+            self.show_menu()
+
+        elif option == "7":
+            print("-----------node data------------")
+            print()
+            self.program.node_data()
             self.show_menu()
 
         else:

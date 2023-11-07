@@ -1,3 +1,6 @@
+import os
+import zipfile
+
 from File_and_Folder import File, Folder
 
 class Node:
@@ -101,6 +104,60 @@ class GeneralTree:
     
     def duplicate_name(self, original_name):
         return self.find_node_by_name(original_name) is not None
+    
+    def node_data(self, node):
+        if node.is_folder():
+            return {
+                "Type": "Folder",
+                "Name": node.value.name,
+                "Size": node.value.size,
+                "Creation Date": node.value.creation_date
+            }
+        elif node.is_file():
+            return {
+                "Type": "File",
+                "Name": node.value.name,
+                "Size": node.value.size,
+                "Creation Date": node.value.creation_date
+            }
+        else:
+            return {
+                "Type": "Unknown",
+                "Value": node.value
+            }
+        
+    def build_tree_from_zip(self, zip_file_path):
+        # Directorio temporal para extraer el contenido del archivo zip
+        temp_dir = "temp_extracted_folder"
+
+        # Crear el objeto ZipFile
+        with zipfile.ZipFile(zip_file_path, 'r') as zip_ref:
+            # Extraer todo el contenido del archivo zip en el directorio temporal
+            zip_ref.extractall(temp_dir)
+
+        # Construir el árbol a partir del directorio temporal
+        self.root = self.build_tree_from_directory_recursive(temp_dir)
+    
+    def build_tree_from_directory_recursive(self, directory):
+        node_value = Folder(os.path.basename(directory), 0, None)  # Tamaño y fecha de creación de la carpeta no están definidos en este contexto
+        node = Node(node_value)
+
+        # Recorre los elementos en el directorio
+        for item in os.listdir(directory):
+            item_path = os.path.join(directory, item)
+
+            if os.path.isdir(item_path):
+                # Si es un directorio, llamada recursiva
+                child_node = self.build_tree_from_directory_recursive(item_path)
+            else:
+                # Si es un archivo, crea un nodo de archivo
+                file_size = os.path.getsize(item_path)
+                file_creation_date = os.path.getctime(item_path)
+                child_node = Node(File(item, file_size, file_creation_date))
+
+            node.children.append(child_node)
+
+        return node
 
     def pretty_print_tree(self, node = None, linea=""):
         if self.root is None:
@@ -114,8 +171,7 @@ class GeneralTree:
 
         for child in node.children:
             self.pretty_print_tree(child, linea + "     ")
-
-
+    
 """
 carpeta_1 = Folder("carpeta 1")
 carpeta_2 = Folder("carpeta 2")
