@@ -9,9 +9,9 @@ Crearán un sistema de gestión de archivos y carpetas. Para hacerlo, seguirán 
 
 - Toda la práctica se realizará sobre las carpetas y archivos extraídos desde este archivo .zip
 
-- El usuario podrá buscar, crear y eliminar archivos y carpetas
+- El usuario podrá buscar, crear y eliminar archivos y carpetas...
 
-- Los cambios de eliminación y adición de archivos y carpetas se deben reflejar tanto en el árbol como en la carpeta original.
+- Los cambios de eliminación y adición de archivos y carpetas se deben reflejar en el árbol.
 
 - Para hacer alguna de estas acciones el usuario le da al sistema la ruta donde se quiere realizar la acción. A esta ruta se debe llegar recorriendo el árbol sin la ayuda de las librerías de Python.
 

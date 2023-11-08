@@ -29,7 +29,7 @@ class GeneralTree:
         else:
             return str(node.value)
 
-    def add_node(self, value, parent=None, current=None):
+    def add_node(self, value, parent = None, current = None):
         """
         Añade un nodo al árbol
         """
@@ -40,24 +40,17 @@ class GeneralTree:
         # Verifica si el nodo actual coincide con el nodo padre especificado
         if current:
             if current.value == parent:
-                # Añade un nuevo nodo si el nombre no está duplicado
-                if not self.duplicate_name(value.name):
-                    current.children.append(Node(value))
-                else:
-                    print(f"This name all ready exist: '{value.name}'")
+                # Añade el nodo a los hijos del padre
+                current.children.append(Node(value))
             else:
                 # Busca recursivamente en los hijos del nodo actual
                 for child in current.children:
                     self.add_node(value, parent, child)
         else:
-            # Si no hay nodo actual, crea un nuevo nodo y lo establece como raíz
-            if not self.duplicate_name(value.name):
-                self.root = Node(value)
-            else:
-                print(f"This name all ready exist: '{value.name}'")
+            self.root = Node(value)
     
 
-    def delete_node(self, value, parent=None, current=None) -> bool:
+    def delete_node(self, value, parent = None, current = None) -> bool:
         """
         Elimina un nodo del árbol
         """
@@ -105,7 +98,7 @@ class GeneralTree:
         return False
         
 
-    def rename_node(self, old_name, new_name):
+    def rename_node(self, old_name, new_name) -> bool:
         """
         Renombra un nodo en el árbol
         """
@@ -124,7 +117,7 @@ class GeneralTree:
             # Si no existe, retorna False
             return False
     
-    def duplicate_name(self, original_name):
+    def duplicate_name(self, original_name) -> bool:
         """
         Verifica si ya hay otro nodo con el mismo nombre en el arbol
         """
@@ -211,7 +204,7 @@ class GeneralTree:
         self.root = root_node
 
 
-    def create_folder_from_tree(self, node=None, current_path=""):
+    def create_folder_from_tree(self, node = None, current_path = ""):
         """
         Crea una carpeta basado en la estructura del árbol
         """
@@ -236,7 +229,7 @@ class GeneralTree:
                 fike.write("Contenido del archivo")
 
 
-    def pretty_print_tree(self, node = None, linea=""):
+    def pretty_print_tree(self, node = None, linea = ""):
         """
         Imprime una representación visual del árbol
         """
@@ -253,7 +246,8 @@ class GeneralTree:
             self.pretty_print_tree(child, linea + "     ")
     
 
-
+"""
+# Ejemplo arbol propio
 carpeta_1 = Folder("carpeta 1", 12414141, 423423)
 carpeta_2 = Folder("carpeta 2", 12414141, 423423)
 carpeta_3 = Folder("carpeta 3", 12414141, 423423)
@@ -291,12 +285,20 @@ arbol.add_node(archivo8, carpeta_4)
 arbol.add_node(archivo9, carpeta_4)
 arbol.add_node(archivo10, carpeta_4)
 
+arbol.pretty_print_tree()
+
 arbol.create_folder_from_tree()
+"""
 
 """
+# Ejemplo arbol .zip
 arbol = GeneralTree()
+
 arbol.build_tree_from_zip("ejemplo.zip")
+
 arbol.rename_node("ejemplo.zip", "Hola")
+
 arbol.pretty_print_tree()
+
 arbol.create_folder_from_tree()
 """
