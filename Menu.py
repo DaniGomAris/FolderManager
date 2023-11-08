@@ -16,7 +16,7 @@ MENU
 5) Delete folder
 6) Delete file
 7) Node data
-8) Create .zip
+8) Create folder
 exit""")
 
         self.get_menu_answer()
@@ -68,9 +68,9 @@ exit""")
             self.show_menu()
 
         elif option == "8":
-            print("----------create .zip------------")
+            print("--------create folder-----------")
             print()
-            self.program.create_zip()
+            self.program.create_folder()
             self.show_menu()
         
         elif option == "exit":
