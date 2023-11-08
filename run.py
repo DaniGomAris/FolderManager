@@ -24,7 +24,8 @@ if __name__ == "__main__":
                 option_menu = int(input("Option: "))
                 print("--------------------------------")
 
-                if option_menu == 1: # Extraer .zip para el arbol
+                # Extraer .zip para crear el arbol
+                if option_menu == 1:
                     print()
 
                     zip_file_name = input("Enter the name of the zip file: ")
@@ -44,7 +45,8 @@ if __name__ == "__main__":
                     menu = Menu(program)
                     menu.show_menu()
                 
-                elif option_menu == 2: # Crear un arbol propio
+                # Crear un arbol propio
+                elif option_menu == 2: 
                     print()
 
                     root_folder_name = input("Enter the name of the root folder: ")

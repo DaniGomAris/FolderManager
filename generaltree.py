@@ -253,7 +253,8 @@ class GeneralTree:
             self.pretty_print_tree(child, linea + "     ")
     
 
-
+"""
+# Ejemplo arbol propio
 carpeta_1 = Folder("carpeta 1", 12414141, 423423)
 carpeta_2 = Folder("carpeta 2", 12414141, 423423)
 carpeta_3 = Folder("carpeta 3", 12414141, 423423)
@@ -291,12 +292,20 @@ arbol.add_node(archivo8, carpeta_4)
 arbol.add_node(archivo9, carpeta_4)
 arbol.add_node(archivo10, carpeta_4)
 
+arbol.pretty_print_tree()
+
 arbol.create_folder_from_tree()
+"""
 
 """
+# Ejemplo arbol .zip
 arbol = GeneralTree()
+
 arbol.build_tree_from_zip("ejemplo.zip")
+
 arbol.rename_node("ejemplo.zip", "Hola")
+
 arbol.pretty_print_tree()
+
 arbol.create_folder_from_tree()
 """

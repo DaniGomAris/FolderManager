@@ -17,7 +17,7 @@ MENU
 6) Delete file
 7) Node data
 8) Create folder
-exit""")
+9) exit""")
 
         self.get_menu_answer()
 
@@ -73,8 +73,8 @@ exit""")
             self.program.create_folder()
             self.show_menu()
         
-        elif option == "exit":
-            sys.exit("Chao")
+        elif option == "9":
+            sys.exit()
 
         else:
             print("Opción inválida")
