@@ -163,6 +163,43 @@ class GeneralTree:
         self.root = root_node
 
 
+    def create_zip_from_tree(self, output_zip_path=None):
+        """
+        Crea un archivo .zip a partir del árbol actual.
+        """
+        output_zip_path = f"{self.root.value.name}.zip"
+
+        with zipfile.ZipFile(output_zip_path, 'w') as zip_ref:
+            nodes_to_process = [(self.root, "")]
+
+            while nodes_to_process:
+                node, current_path = nodes_to_process.pop(0)
+
+                if node.is_file() or node.is_folder():
+                    # Construir la ruta completa al nodo
+                    node_path = os.path.join(current_path, node.value.name)
+
+                    # Crear carpetas y archivos temporales si no existen
+                    if node.is_folder() and not os.path.exists(node_path):
+                        os.makedirs(node_path)
+
+                    elif node.is_file() and not os.path.exists(node_path):
+                        with open(node_path, 'w') as temp_file:
+                            temp_file.write("Contenido del archivo temporal")
+
+                    # Verificar si el archivo realmente existe
+                    if os.path.exists(node_path):
+                        # Obtener la ruta relativa desde el directorio de trabajo actual
+                        arcname = os.path.relpath(node_path, start=current_path)
+
+                        # Agregar al .zip
+                        zip_ref.write(node_path, arcname=arcname)
+
+                        # Si es una carpeta, agregar sus hijos a la lista de nodos a procesar
+                        if node.is_folder():
+                            nodes_to_process.extend((child, node_path) for child in node.children)
+
+
     def pretty_print_tree(self, node = None, linea=""):
         if self.root is None:
             print("Empty tree")

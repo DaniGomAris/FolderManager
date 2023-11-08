@@ -134,3 +134,11 @@ class Program:
             print("--------------------------------")
             print()
             self.tree.pretty_print_tree()
+
+    def create_zip(self):
+        self.tree.create_zip_from_tree()
+        print()
+        print(".zip create successfully")
+        print("--------------------------------")
+        print()
+        self.tree.pretty_print_tree()
