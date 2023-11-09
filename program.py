@@ -134,10 +134,4 @@ class Program:
             print()
             self.tree.pretty_print_tree()
 
-    def create_folder(self):
-        self.tree.create_folder_from_tree()
-        print()
-        print("Folder create successfully")
-        print("--------------------------------")
-        print()
-        self.tree.pretty_print_tree()
+    

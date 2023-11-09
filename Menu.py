@@ -16,8 +16,7 @@ MENU
 5) Delete folder
 6) Delete file
 7) Node data
-8) Create folder
-9) exit""")
+8) exit""")
 
         self.get_menu_answer()
 
@@ -67,13 +66,8 @@ MENU
             self.program.node_data()
             self.show_menu()
 
+
         elif option == "8":
-            print("--------create folder-----------")
-            print()
-            self.program.create_folder()
-            self.show_menu()
-        
-        elif option == "9":
             sys.exit()
 
         else:

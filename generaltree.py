@@ -201,31 +201,6 @@ class GeneralTree:
         self.root = root_node
 
 
-    def create_folder_from_tree(self, node = None, current_path = ""):
-        """
-        Crea una carpeta basado en la estructura del árbol
-        """
-        # Comienza desde el nodo raíz y la ruta vacía
-        if node is None and self.root is not None:
-            node = self.root
-
-        # Construye la ruta completa del nodo en el sistema de archivos
-        node_path = os.path.join(current_path, node.value.name)
-
-        # Si el nodo es una carpeta, crea la carpeta en el sistema de archivos
-        if node.is_folder():
-            os.makedirs(node_path)
-
-            # Se llama recursivamente a la funcion para los hijos
-            for child in node.children:
-                self.create_folder_from_tree(child, node_path)
-
-        # Si el nodo es un archivo, crea el archivo con contenido de ejemplo
-        elif node.is_file():
-            with open(node_path, 'w') as fike:
-                fike.write("Contenido del archivo")
-
-
     def pretty_print_tree(self, node = None, linea = ""):
         """
         Imprime una representación visual del árbol
