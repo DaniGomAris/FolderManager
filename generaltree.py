@@ -1,5 +1,6 @@
 import os
 import zipfile
+import random
 
 from File_and_Folder import File, Folder
 
@@ -136,16 +137,12 @@ class GeneralTree:
                 "Creation Date": node.value.creation_date
             }
         elif node.is_file():
+            print()
             return {
                 "Type": "File",
                 "Name": node.value.name,
                 "Size": node.value.size,
                 "Creation Date": node.value.creation_date
-            }
-        else:
-            return {
-                "Type": "Unknown",
-                "Value": node.value
             }
         
     def build_tree_from_zip(self, zip_file_path):
@@ -160,7 +157,7 @@ class GeneralTree:
             root_folder_name = os.path.basename(zip_ref.filename)
 
             # Crea el valor para la carpeta raíz del árbol
-            root_folder_value = Folder(root_folder_name, 0, None)
+            root_folder_value = Folder(root_folder_name, random.randint(1,20), "12/08/2023")
             root_node = Node(root_folder_value)
 
             # Recorre los elementos en el archivo ZIP
@@ -197,7 +194,7 @@ class GeneralTree:
 
                 # Si el elemento tiene un nombre, crea un nodo de archivo y lo agrega como hijo
                 if item_name:
-                    file_node = Node(File(item_name, item_size, item_creation_date))
+                    file_node = Node(File(item_name, random.randint(1,20), "12/08/2023"))
                     current_node.children.append(file_node)
 
         # Establece el nodo raíz del arbol construido

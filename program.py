@@ -1,4 +1,5 @@
 from File_and_Folder import File, Folder
+import random
 
 class Program:
     def __init__(self, tree):
@@ -7,12 +8,11 @@ class Program:
     def add_folder(self):
         parent_folder_name = input("Type the name of the folder where you want to add a folder: ")
         folder_name = input("Folder name: ")
-        folder_weight = input("Folder weight: ")
-        folder_creationdate = input("Folder date: ")
+
 
         parent_folder = self.tree.find_node_by_name(parent_folder_name)
         if parent_folder and parent_folder.is_folder():
-            new_folder = Folder(folder_name, folder_weight, folder_creationdate)
+            new_folder = Folder(folder_name, random.randint(1,20), "12/08/2023")
             self.tree.add_node(new_folder, parent_folder.value)
             print()
             print("--------------------------------")
@@ -27,12 +27,11 @@ class Program:
     def add_file(self):
         parent_folder_name = input("Type the name of the folder where you want to add a folder: ")
         file_name = input("File name: ")
-        file_weight = input("File weight: ")
-        file_creationdate = input("File date: ")
+
 
         parent_folder = self.tree.find_node_by_name(parent_folder_name)
         if parent_folder and parent_folder.is_folder():
-            new_folder = File(file_name, file_weight, file_creationdate)
+            new_folder = File(file_name, random.randint(1,20), "12/08/2023")
             self.tree.add_node(new_folder, parent_folder.value)
             print()
             print("--------------------------------")
